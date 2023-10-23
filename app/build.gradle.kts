@@ -53,5 +53,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     //Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.12.0")
 }
