@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "334693322327",
+    "project_id": "musicyoutuyouapp",
+    "storage_bucket": "musicyoutuyouapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334693322327:android:b1be189cc0a6ba67f9dd12",
+        "android_client_info": {
+          "package_name": "com.devhp.music_youtuyou_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBANlXKsukx5a4enTeKXPDN9U1i5WUUgR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
