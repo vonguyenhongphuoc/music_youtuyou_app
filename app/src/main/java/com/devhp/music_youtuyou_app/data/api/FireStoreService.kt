@@ -1,8 +1,8 @@
 package com.devhp.music_youtuyou_app.data.api
 
 import android.util.Log
-import com.devhp.music_youtuyou_app.presentation.MainActivity
 import com.devhp.music_youtuyou_app.data.model.User
+import com.devhp.music_youtuyou_app.presentation.MainActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.coroutines.resume
@@ -33,6 +33,7 @@ class FireStoreService {
     }
 
     suspend fun signUp(user: User): Boolean = suspendCoroutine { continuation ->
+        Log.d(MainActivity.TAG, "Sign Up handling in ${Thread.currentThread().name}")
         val userHashMap = hashMapOf(
             "username" to user.username,
             "password" to user.password

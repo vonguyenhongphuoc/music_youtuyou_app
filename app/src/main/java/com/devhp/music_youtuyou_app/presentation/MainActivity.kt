@@ -1,10 +1,12 @@
 package com.devhp.music_youtuyou_app.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.devhp.music_youtuyou_app.databinding.ActivityMainBinding
+import com.devhp.music_youtuyou_app.presentation.signup.SignUpActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -36,13 +38,17 @@ class MainActivity : AppCompatActivity() {
             btnGetUsers.setOnClickListener {
                 getUsers()
             }
+
+            btnSignUp.setOnClickListener {
+                startActivity(Intent(this@MainActivity, SignUpActivity::class.java))
+            }
         }
 
     }
 
     private fun getUsers() {
         db.collection("users")
-            .get().addOnSuccessListener { result  ->
+            .get().addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                 }
