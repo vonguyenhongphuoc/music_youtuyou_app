@@ -2,17 +2,18 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.devhp.music_youtuyou_app"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.devhp.music_youtuyou_app"
         minSdk = 23
         //noinspection EditedTargetSdkVersion
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -29,21 +30,25 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
+        targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures { viewBinding = true }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
-    val lifecycleVersion = "2.7.0-alpha03"
+    val lifecycleVersion = "2.6.0"
     val coroutinesVersion = "1.7.3"
-    implementation("androidx.core:core-ktx:1.12.0")
+    val daggerVersion = "2.35.1"
+    implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Firebase
@@ -60,7 +65,7 @@ dependencies {
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     // Annotation processor
-    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
+    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
 
     // Android Testing
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -73,5 +78,9 @@ dependencies {
     testImplementation("com.google.truth:truth:1.1.4")
     testImplementation("androidx.test.ext:junit:1.1.5")
     testImplementation("org.robolectric:robolectric:4.10.3")
+
+    //Dagger
+    implementation("com.google.dagger:dagger:2.35.1")
+    annotationProcessor("com.google.dagger:dagger-compiler:2.35.1")
 
 }
