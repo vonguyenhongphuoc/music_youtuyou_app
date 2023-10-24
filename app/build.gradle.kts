@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
-    id("kotlin-kapt")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,6 +38,7 @@ android {
         jvmTarget = "17"
     }
     buildFeatures { viewBinding = true }
+    // Allow references to generated code
     kapt {
         correctErrorTypes = true
     }
@@ -45,7 +47,8 @@ android {
 dependencies {
     val lifecycleVersion = "2.6.0"
     val coroutinesVersion = "1.7.3"
-    val daggerVersion = "2.35.1"
+    val activityVersion = "1.3.1"
+    val fragmentVersion = "1.3.1"
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.6.1")
@@ -80,7 +83,16 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.10.3")
 
     //Dagger
-    implementation("com.google.dagger:dagger:2.35.1")
-    annotationProcessor("com.google.dagger:dagger-compiler:2.35.1")
+//    implementation("com.google.dagger:dagger:$daggerVersion")
+//    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
+
+    // Support init viewmodel
+    implementation("androidx.activity:activity-ktx:$activityVersion")
+    implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
+
 
 }
