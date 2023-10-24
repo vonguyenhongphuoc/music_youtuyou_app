@@ -1,6 +1,8 @@
 package com.devhp.music_youtuyou_app.presentation
 
+import android.content.Context
 import android.content.Intent
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -10,9 +12,11 @@ import com.devhp.music_youtuyou_app.presentation.signup.SignUpActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val db = Firebase.firestore
+    var wifiManager: WifiManager? = null
 
     companion object {
         const val TAG = "MyTag"
@@ -22,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        wifiManager =
+            applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager?
         binding.apply {
             btnRegister.setOnClickListener {
                 val username = etUsername.text.toString().trim()
@@ -41,6 +46,17 @@ class MainActivity : AppCompatActivity() {
 
             btnSignUp.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SignUpActivity::class.java))
+            }
+
+            btnWifi.setOnClickListener {
+                val isWifiEnabled: Boolean = wifiManager?.isWifiEnabled ?: false
+                if (isWifiEnabled) {
+                    btnWifi.text = "Turn on Wifi"
+                    wifiManager?.setWifiEnabled(false)
+                } else {
+                    btnWifi.text = "Turn off Wifi"
+                    wifiManager?.setWifiEnabled(true)
+                }
             }
         }
 
