@@ -5,6 +5,10 @@ import com.devhp.music_youtuyou_app.data.model.User
 import com.devhp.music_youtuyou_app.presentation.MainActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -20,14 +24,15 @@ class FireStoreService {
                     Log.d(MainActivity.TAG, "${document.id} => ${document.data}")
                     if (user.username == username && user.password == password) {
                         continuation.resume(true)
-                        break
+                        return@addOnSuccessListener
                     }
                 }
                 continuation.resume(false)
-
+                return@addOnSuccessListener
             }.addOnFailureListener { e ->
                 Log.d(MainActivity.TAG, "Error sign in", e)
                 continuation.resume(false)
+                return@addOnFailureListener
             }
 
     }
@@ -38,17 +43,33 @@ class FireStoreService {
             "username" to user.username,
             "password" to user.password
         )
-        db.collection("users")
-            .add(userHashMap)
-            .addOnSuccessListener { documentReference ->
-                val documentId = documentReference.id
-                Log.d(MainActivity.TAG, "DocumentSnapshot added with ID: $documentId")
-                continuation.resume(true)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val deferred = async {
+                signIn(user)
             }
-            .addOnFailureListener { e ->
-                Log.d(MainActivity.TAG, "Error sign up", e)
+            val result = deferred.await()
+
+            if (result) {
                 continuation.resume(false)
+            } else {
+                db.collection("users")
+                    .add(userHashMap)
+                    .addOnSuccessListener { documentReference ->
+                        val documentId = documentReference.id
+                        Log.d(MainActivity.TAG, "DocumentSnapshot added with ID: $documentId")
+                        continuation.resume(true)
+                    }
+                    .addOnFailureListener { e ->
+                        Log.d(MainActivity.TAG, "Error sign up", e)
+                        continuation.resume(false)
+                    }
             }
+
+
+        }
+
+
     }
 
 }
