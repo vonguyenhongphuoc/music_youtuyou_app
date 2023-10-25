@@ -4,17 +4,18 @@ plugins {
     id("com.google.gms.google-services")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
     namespace = "com.devhp.music_youtuyou_app"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.devhp.music_youtuyou_app"
         minSdk = 23
         //noinspection EditedTargetSdkVersion
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -49,6 +50,7 @@ dependencies {
     val coroutinesVersion = "1.7.3"
     val activityVersion = "1.3.1"
     val fragmentVersion = "1.3.1"
+    val navVersion = "2.7.4"
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.6.1")
@@ -94,5 +96,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:$activityVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
 
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
 }

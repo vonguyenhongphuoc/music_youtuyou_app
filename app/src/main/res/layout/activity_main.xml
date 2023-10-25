@@ -69,4 +69,22 @@
         android:background="@android:color/holo_blue_light"
         android:text="Turn off wifi" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="Open Settings Activity" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_authentication_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="Open Authentication Activity" />
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.devhp.music_youtuyou_app.data.model.User
 import com.devhp.music_youtuyou_app.databinding.ActivitySignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
