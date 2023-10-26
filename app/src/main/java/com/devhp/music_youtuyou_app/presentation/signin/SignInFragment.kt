@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import com.devhp.music_youtuyou_app.data.model.User
 import com.devhp.music_youtuyou_app.databinding.FragmentSignInBinding
 import com.devhp.music_youtuyou_app.presentation.home.HomeActivity
+import com.devhp.music_youtuyou_app.presentation.main.MainViewModel
+import com.devhp.music_youtuyou_app.presentation.main.MainViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,13 +22,18 @@ class SignInFragment : Fragment() {
 
     @Inject
     lateinit var factory: SignInViewModelFactory
+
+    @Inject
+    lateinit var factoryMain: MainViewModelFactory
     private lateinit var binding: FragmentSignInBinding
     private val viewModel: SignInViewModel by viewModels { factory }
+    private val viewModelMain: MainViewModel by viewModels { factory }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
+        binding.etUsername.setText(viewModelMain.value.toString())
         binding.btnSignIn.setOnClickListener {
             signIn()
         }
