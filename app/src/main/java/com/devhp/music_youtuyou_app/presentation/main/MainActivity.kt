@@ -18,13 +18,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory: MainViewModelFactory
-    private val viewModel: MainViewModel by viewModels { factory }
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
     private val db = Firebase.firestore
-
+    @Inject
+    lateinit var appDataManager: AppManager
     companion object {
         const val TAG = "MyTag"
     }
@@ -34,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.value = 79
+        appDataManager.testValue = 994
+        AppManager2.testValue = 992
         binding.apply {
 
             btnSettings.setOnClickListener {

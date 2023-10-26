@@ -1,13 +1,21 @@
 package com.devhp.music_youtuyou_app.presentation.main
 
-import androidx.lifecycle.SavedStateHandle
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import javax.inject.Inject
 
 
 class MainViewModel :
     ViewModel() {
 
     var value = 0
+
+    init {
+        Log.d(MainActivity.TAG, "Init ViewModel")
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d(MainActivity.TAG, "Clear MainViewModel")
+    }
 
 }

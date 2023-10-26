@@ -3,6 +3,7 @@ package com.devhp.music_youtuyou_app.presentation.authentication
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.devhp.music_youtuyou_app.databinding.ActivityAuthenticationBinding
+import com.devhp.music_youtuyou_app.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
