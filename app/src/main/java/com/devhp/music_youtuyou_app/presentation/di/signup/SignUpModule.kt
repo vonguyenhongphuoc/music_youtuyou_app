@@ -1,5 +1,6 @@
 package com.devhp.music_youtuyou_app.presentation.di.signup
 
+import com.devhp.music_youtuyou_app.domain.usecase.CheckUserExistUseCase
 import com.devhp.music_youtuyou_app.domain.usecase.SignUpUseCase
 import com.devhp.music_youtuyou_app.presentation.signup.SignUpViewModelFactory
 import dagger.Module
@@ -15,9 +16,10 @@ class SignUpModule {
     @Provides
     fun provideSignUpViewModelFactory(
         signUpUseCase: SignUpUseCase,
+        checkUserExistUseCase: CheckUserExistUseCase
     ): SignUpViewModelFactory {
         return SignUpViewModelFactory(
-            signUpUseCase
+            signUpUseCase, checkUserExistUseCase
         )
     }
 }

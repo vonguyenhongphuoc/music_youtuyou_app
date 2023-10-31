@@ -12,9 +12,18 @@ import kotlinx.coroutines.withContext
 class FireStoreService {
     private val db = Firebase.firestore
 
+
+    companion object {
+        /*Collection Paths*/
+        private const val USERS_COLLECTION = "users"
+
+    }
+
+
     suspend fun signIn(user: User): Boolean = withContext(Dispatchers.IO) {
         try {
-            val result = db.collection("users")
+
+            val result = db.collection(USERS_COLLECTION)
                 .get().await()
             for (document in result) {
                 val username = document.data["username"]
@@ -25,7 +34,7 @@ class FireStoreService {
             return@withContext false
         } catch (e: Exception) {
             // Xử lý lỗi Firebase tại đây
-            Log.e(MainActivity.TAG, "Error sign up", e)
+            Log.e(MainActivity.TAG, "Error signIn", e)
             return@withContext false
         }
 
@@ -33,29 +42,39 @@ class FireStoreService {
 
 
     suspend fun signUp(user: User): Boolean = withContext(Dispatchers.IO) {
-        Log.d(MainActivity.TAG, "Sign Up handling in ${Thread.currentThread().name}")
         val userHashMap = hashMapOf(
             "username" to user.username,
             "password" to user.password
         )
 
         try {
-            val result = signIn(user)
+            val documentReference = db.collection(USERS_COLLECTION)
+                .add(userHashMap)
+                .await()
 
-            if (result) {
-                return@withContext false
-            } else {
-                val documentReference = db.collection("users")
-                    .add(userHashMap)
-                    .await()
+            val documentId = documentReference.id
+            Log.d(MainActivity.TAG, "DocumentSnapshot added with ID: $documentId")
+            return@withContext true
 
-                val documentId = documentReference.id
-                Log.d(MainActivity.TAG, "DocumentSnapshot added with ID: $documentId")
-                return@withContext true
-            }
         } catch (e: Exception) {
             // Xử lý lỗi Firebase tại đây
-            Log.e(MainActivity.TAG, "Error sign up", e)
+            Log.e(MainActivity.TAG, "Error signUp", e)
+            return@withContext false
+        }
+    }
+
+    suspend fun checkUserExist(user: User): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val result = db.collection(USERS_COLLECTION).get().await()
+            for (document in result) {
+                val username = document.data["username"] ?: ""
+                if (username == user.username) {
+                    return@withContext true
+                }
+            }
+            return@withContext false
+        } catch (e: Exception) {
+            Log.e(MainActivity.TAG, "Error checkUserExist")
             return@withContext false
         }
     }

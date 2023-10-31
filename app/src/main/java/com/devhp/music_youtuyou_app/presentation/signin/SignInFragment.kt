@@ -1,6 +1,5 @@
 package com.devhp.music_youtuyou_app.presentation.signin
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.devhp.music_youtuyou_app.R
 import com.devhp.music_youtuyou_app.data.model.User
 import com.devhp.music_youtuyou_app.databinding.FragmentSignInBinding
-import com.devhp.music_youtuyou_app.presentation.home.HomeActivity
-import com.devhp.music_youtuyou_app.presentation.main.AppManager
-import com.devhp.music_youtuyou_app.presentation.main.AppManager2
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,9 +20,6 @@ class SignInFragment : Fragment() {
 
     @Inject
     lateinit var factory: SignInViewModelFactory
-
-    @Inject
-    lateinit var appManager: AppManager
     private lateinit var binding: FragmentSignInBinding
     private val viewModel: SignInViewModel by viewModels { factory }
     override fun onCreateView(
@@ -32,9 +27,9 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
-        binding.etUsername.setText(appManager.testValue.toString() + " " + AppManager2.testValue)
-
-        binding.btnSignIn.setOnClickListener {
+        binding.etUsername.setText("sasuke")
+        binding.etPassword.setText("123456")
+        binding.btnSignIn.setOnClickListener { view ->
             signIn()
         }
         return binding.root
@@ -48,12 +43,13 @@ class SignInFragment : Fragment() {
             val result = viewModel.signIn(user)
             result.observe(requireActivity()) { isSuccess ->
                 if (isSuccess) {
-                    requireActivity().startActivity(
-                        Intent(
-                            requireActivity(),
-                            HomeActivity::class.java
-                        )
+                    Toast.makeText(
+                        requireActivity(),
+                        "Đăng nhập thành công",
+                        Toast.LENGTH_SHORT
                     )
+                        .show()
+                    findNavController().navigate(R.id.action_global_homeFragment)
                 } else {
                     Toast.makeText(
                         requireActivity(),

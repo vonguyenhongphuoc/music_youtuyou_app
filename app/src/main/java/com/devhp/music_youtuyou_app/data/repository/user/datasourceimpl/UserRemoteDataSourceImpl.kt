@@ -8,5 +8,6 @@ class UserRemoteDataSourceImpl(private val firestoreService: FireStoreService) :
     UserRemoteDataSource {
     override suspend fun signIn(user: User): Boolean = firestoreService.signIn(user)
     override suspend fun signUp(user: User): Boolean = firestoreService.signUp(user)
+    override suspend fun checkUserExist(user: User): Boolean = firestoreService.checkUserExist(user)
 
 }

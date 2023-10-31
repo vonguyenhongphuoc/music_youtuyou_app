@@ -1,6 +1,7 @@
 package com.devhp.music_youtuyou_app.presentation.di.core
 
 import com.devhp.music_youtuyou_app.domain.repository.UserRepository
+import com.devhp.music_youtuyou_app.domain.usecase.CheckUserExistUseCase
 import com.devhp.music_youtuyou_app.domain.usecase.SignInUseCase
 import com.devhp.music_youtuyou_app.domain.usecase.SignUpUseCase
 import dagger.Module
@@ -21,5 +22,10 @@ class UseCaseModule {
     @Provides
     fun provideSignUpUseCase(userRepository: UserRepository): SignUpUseCase {
         return SignUpUseCase(userRepository)
+    }
+
+    @Provides
+    fun provideCheckUserExistUseCase(userRepository: UserRepository): CheckUserExistUseCase {
+        return CheckUserExistUseCase(userRepository)
     }
 }

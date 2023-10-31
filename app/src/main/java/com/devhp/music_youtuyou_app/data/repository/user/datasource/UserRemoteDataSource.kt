@@ -6,4 +6,6 @@ interface UserRemoteDataSource {
     suspend fun signIn(user: User): Boolean
 
     suspend fun signUp(user: User): Boolean
+
+    suspend fun checkUserExist(user: User): Boolean
 }
