@@ -77,14 +77,73 @@ class WebViewFragment : Fragment() {
 //
 //                }
 
-                return if (url.contains("https://www.youtube.com/pagead/interaction/?") || url.contains(" https://m.youtube.com/api/stats/") || url.contains("doubleclick") ||  url.contains("https://www.youtube.com/pagead/interaction/") || url.contains("https://tpc.googlesyndication.com/") || url.contains("ads") || url.contains("https://rr8") || url.contains("https://play.google.com/log?")) {
-                    val textStream = ByteArrayInputStream("".toByteArray())
-                    getTextWebResource(textStream)
-                } else {
+                /*   return if (url.contains("https://www.youtube.com/pagead/interaction/?") || url.contains(" https://m.youtube.com/api/stats/") || url.contains("doubleclick") ||  url.contains("https://www.youtube.com/pagead/interaction/") || url.contains("https://tpc.googlesyndication.com/") || url.contains("ads") || url.contains("https://rr8") || url.contains("https://play.google.com/log?")) {
+                       val textStream = ByteArrayInputStream("".toByteArray())
+                       getTextWebResource(textStream)
+                   } else {
+                       super.shouldInterceptRequest(view, url)
+                   }*/
+
+                val param1 = "https://m.youtube.com/api/stats/"
+                val param14 = "https://www.youtube.com/watch"
+                val param15 = "https://m.youtube.com/s/search/"
+                val param16 = "https://m.youtube.com/s/_/ytmweb/"
+                val param17 = "https://m.youtube.com/static/"
+                val param18 = "https://m.youtube.com/s/player/"
+                val param3 = "https://rr"
+                val param11 = "https://play.google.com/log"
+                val param6 = "https://i.ytimg.com/"
+                val param13 = "https://m.youtube.com/youtubei/v1/next"
+                val param19 = "https://m.youtube.com/?pbj"
+                val param20 = "https://yt3.ggpht.com/"
+                val param21 = "https://m.youtube.com/youtubei/v1/guide"
+                val param22 = "https://m.youtube.com/youtubei/v1/att/get"
+                val param25 = "https://m.youtube.com/youtubei/v1/browse"
+                val param26 = "https://m.youtube.com/youtubei/v1/player"
+                val textStream = ByteArrayInputStream("".toByteArray())
+
+
+                return if (!url.contains(param13) && (url.contains(param1)
+                            || url.contains(param3) || url.contains(
+                        param6
+                    ) || url.contains(
+                        param3
+                    ) || url.contains(param11) || url.contains(param14) || url.contains(param15) || url.contains(
+                        param16
+                    )) || url.contains(param17) || url.contains(param18) || url.contains(param19) || url.contains(
+                        param20
+                    )  || url.contains(param25) || url.contains(param21) || url.contains(param22) || url.contains(param26)
+                ) {
+                    Log.d("Unlock url", url)
                     super.shouldInterceptRequest(view, url)
+                } else {
+                    Log.d("Blocked url", url)
+                    return getTextWebResource(textStream)
                 }
 
+
             }
+
+
+//                return if (
+//                    url.contains(param1)
+//                    || url.contains(param3) || url.contains(
+//                        param6
+//                    ) || url.contains(
+//                        param3
+//                    ) || url.contains(param11) || url.contains(param14) || url.contains(param15) || url.contains(
+//                        param16
+//                    )
+//                ) {
+//                    Log.d("Unlock url", url)
+//                    super.shouldInterceptRequest(view, url)
+//                } else {
+//                    Log.d("Blocked url", url)
+//                    val textStream = ByteArrayInputStream("".toByteArray())
+//                    getTextWebResource(textStream)
+//
+//                }
+
 
 //            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
 //                return if (url != null) {

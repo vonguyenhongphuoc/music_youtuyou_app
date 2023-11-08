@@ -28,10 +28,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.apply {
             btnWifi.setOnClickListener {
-
-
-//                val panelIntent = Intent(Settings.Panel.ACTION_WIFI)
-//                startActivityForResult(panelIntent, 1)
+                
                 val fragment = SettingsDialogFragment()
                 fragment.show(supportFragmentManager, "SettingsDialogFragment")
             }
